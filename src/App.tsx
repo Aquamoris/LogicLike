@@ -8,22 +8,23 @@ import Loading from "./components/Loading/Loading.tsx";
 const App: React.FC = () => {
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [coursesToShow, setCoursesToShow] = useState<CourseType[]>([]);
-    const [filterTags, setFilterTags] = useState<Set<string>>(new Set(['Все темы']));
+    const [filterTags, setFilterTags] = useState<string[]>([]);
     const [currentFilterTag, setCurrentFilterTag] = useState<string>('Все темы');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchCourses = async () => {
-
             const fetchedCourses = await getCourses()
+            const fetchedFilters: string[] = ['Все темы'];
 
             setCourses(fetchedCourses);
             fetchedCourses.forEach(course => {
                 course.tags.forEach(tag => {
-                    setFilterTags(prev => new Set([...prev, tag]))
+                    fetchedFilters.push(tag)
                 })
             })
 
+            setFilterTags(Array.from(new Set(fetchedFilters)));
         }
 
         setIsLoading(true);
@@ -47,7 +48,7 @@ const App: React.FC = () => {
 
     return (
         <div className='container'>
-            <FilterTags currentFilterTag={currentFilterTag} tags={Array.from(filterTags)} setCurrentFilterTag={setCurrentFilterTag}/>
+            <FilterTags currentFilterTag={currentFilterTag} tags={filterTags} setCurrentFilterTag={setCurrentFilterTag}/>
             { isLoading ? <Loading /> : <CoursesGrid courses={coursesToShow}/>}
         </div>
     );
