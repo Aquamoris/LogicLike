@@ -1,0 +1,38 @@
+.wrapper {
+  width: 100%;
+  height: 210px;
+
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  box-shadow: 0 10px 13px -4px #23235F30;
+}
+
+.imgWrapper {
+  height: 162px;
+  border-top-right-radius: 18px;
+  border-top-left-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    padding: 9px;
+    height: 144px;
+    width: 144px;
+    object-fit: contain;
+  }
+}
+
+.nameWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px 18px 18px 18px;
+
+  span {
+    font-size: 18px;
+  }
+}
